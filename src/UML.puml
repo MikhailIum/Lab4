@@ -1,0 +1,243 @@
+@startuml
+
+!theme plain
+'top to bottom direction
+'skinparam linetype ortho
+skinparam class {
+  BackgroundColor #89909F
+  ArrowColor      #4682B4
+  BorderColor     #979AAA
+}
+
+package exceptions{
+    class ArmHolding {
+      + ArmHolding():
+      + ok(ArrayList<Character>): void
+       message: String
+    }
+
+    class DoorChecker {
+      + DoorChecker():
+       message: String
+    }
+
+    class Crash {
+      + Crash():
+      + result(): void
+       message: String
+    }
+}
+
+package characters{
+class Character {
+  ~ Character(String, String):
+  ~ size: String
+  + hold_ones_arm(Character): void
+  + eat(): void
+  + find_suit(): void
+   size: String
+   _name: String
+   _weight: int
+}
+
+class Dunno {
+  + Dunno():
+  + landing_phrase(boolean): void
+  + hold_ones_arm(Character): void
+  + eat(): void
+}
+
+class Roly_Poly {
+  + Roly_Poly():
+  + hold_ones_arm(Character): void
+  + eat(): void
+}
+
+}
+
+package word_formation{
+enum Capital << enumeration >> {
+  + Capital():
+  + valueOf(String): Capital
+  + opposite(): Capital
+  + values(): Capital[]
+}
+enum Case << enumeration >> {
+  + Case():
+  + valueOf(String): Case
+  + values(): Case[]
+}
+}
+
+package space_objects{
+class Moon {
+  + Moon():
+  + toString(): String
+  ~ setRocketLanded(): void
+  static class Crystal
+}
+
+class Rocket {
+  + Rocket(boolean, int):
+  - distance_moon: int
+  + open_second_door(ArrayList<Character>): void
+  + setDistance_moon(int, Moon): void
+   distance_moon: int
+  class Door
+}
+}
+
+package equipment{
+class Backpack {
+  + Backpack(String, String):
+  + get_name(Case, Capital): String
+  + equals(Object): boolean
+  + functionality(): String
+  + hashCode(): int
+  + toString(): String
+  + description(): String
+}
+class Battery {
+  + Battery(String):
+  + functionality(): String
+  + description(): String
+  + get_name(Case, Capital): String
+  + toString(): String
+  + equals(Object): boolean
+  + hashCode(): int
+}
+class Boots {
+  + Boots():
+  # get_name(Case): String
+  + toString(): String
+}
+
+
+class Components {
+  + Components(String, String, String, String, String):
+  + toString(): String
+  + equals(Object): boolean
+  + hashCode(): int
+}
+
+interface Device << interface >> {
+  + functionality(): String
+  + description(): String
+  + get_name(Case, Capital): String
+}
+
+
+class Flashlight {
+  + Flashlight(String, String):
+  + equals(Object): boolean
+  + get_name(Case, Capital): String
+  + description(): String
+  + hashCode(): int
+  + functionality(): String
+  + toString(): String
+}
+class Helmet {
+  + Helmet():
+  + get_name(Case, Capital): String
+  + equals(Object): boolean
+  + toString(): String
+}
+class Hood {
+  + Hood(String, String, String):
+  + description(): String
+  + get_name(Case, Capital): String
+  + functionality(): String
+  + toString(): String
+  + equals(Object): boolean
+  + hashCode(): int
+}
+class Jumpsuit {
+  + Jumpsuit():
+  + toString(): String
+  + equals(Object): boolean
+  + get_name(Case, Capital): String
+  - contains(): String
+  - installed(): String
+}
+
+
+interface Parts << interface >> {
+  + get_name(Case, Capital): String
+}
+class Radiostation {
+  + Radiostation(String, String):
+  + description(): String
+  + functionality(): String
+  + equals(Object): boolean
+  + toString(): String
+  + hashCode(): int
+  + get_name(Case, Capital): String
+}
+
+
+class Spaceboots {
+  + Spaceboots():
+  + get_name(Case, Capital): String
+  + toString(): String
+  + equals(Object): boolean
+}
+class Spacesuit {
+  + Spacesuit(Jumpsuit, Helmet, Spaceboots, String):
+  + equals(Object): boolean
+  + toString(): String
+  + hashCode(): int
+}
+class Ventilation {
+  + Ventilation(String, String):
+  + description(): String
+  + hashCode(): int
+  + equals(Object): boolean
+  + toString(): String
+  + functionality(): String
+  + get_name(Case, Capital): String
+}
+class Window {
+  + Window(String, String, String):
+  + get_name(Case, Capital): String
+  + functionality(): String
+  + hashCode(): int
+  + description(): String
+  + equals(Object): boolean
+  + toString(): String
+}
+}
+class Main {
+  + Main():
+  + main(String[]): void
+}
+
+Backpack      -[#008200,dashed]-^  Device
+Battery       -[#008200,dashed]-^  Device
+Dunno         -[#000082,plain]-^  Character
+Flashlight    -[#008200,dashed]-^  Device
+Helmet        -[#008200,dashed]-^  Parts
+Hood          -[#008200,dashed]-^  Device
+Jumpsuit      -[#008200,dashed]-^  Parts
+Radiostation  -[#008200,dashed]-^  Device
+Roly_Poly     -[#000082,plain]-^  Character
+Spaceboots    -[#000082,plain]-^  Boots
+Spaceboots    -[#008200,dashed]-^  Parts
+Ventilation   -[#008200,dashed]-^  Device
+Window        -[#008200,dashed]-^  Device
+Main          -[#595959,dashed]->  DoorChecker
+Main          -[#595959,dashed]->  ArmHolding
+Main          -[#595959,dashed]->  Crash
+Main          -[#595959,dashed]->  Roly_Poly
+Main          -[#595959,dashed]->  Dunno
+Rocket          -[#595959,dashed]->  ArmHolding
+Rocket          -[#595959,dashed]->  Crash
+Main          -[#595959,dashed]->  Rocket
+Main          -[#595959,dashed]->  Moon
+Main          -[#595959,dashed]->  Spacesuit
+Spacesuit          -[#595959,dashed]->  Jumpsuit
+Spacesuit          -[#595959,dashed]->  Helmet
+Spacesuit          -[#595959,dashed]->  Spaceboots
+equipment -[#595959,dashed]-> word_formation
+
+
+@enduml
